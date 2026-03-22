@@ -30,7 +30,7 @@ const Grain=()=><div style={{position:"absolute",inset:0,opacity:0.04,pointerEve
 function Nav(){const[sc,setSc]=useState(false);useEffect(()=>{const h=()=>setSc(window.scrollY>60);window.addEventListener("scroll",h,{passive:true});return()=>window.removeEventListener("scroll",h)},[]);return(
 <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:200,padding:sc?"12px clamp(24px,4vw,60px)":"24px clamp(24px,4vw,60px)",display:"flex",justifyContent:"space-between",alignItems:"center",background:sc?`${C.base}F5`:"transparent",backdropFilter:sc?"blur(20px)":"none",borderBottom:sc?`1px solid ${C.border}`:"none",transition:"all 0.5s cubic-bezier(0.16,1,0.3,1)"}}>
 <div><div style={{fontFamily:F.mono,fontSize:"7px",letterSpacing:"0.5em",textTransform:"uppercase",color:C.rose,marginBottom:"2px"}}>A KHG HugLife Event</div><span style={{fontFamily:F.display,fontSize:"18px",fontWeight:700,color:C.cream,letterSpacing:"0.06em",fontStyle:"italic"}}>STELLA</span></div>
-<div style={{display:"flex",gap:"clamp(16px,2vw,32px)",alignItems:"center"}}>
+<div className="nl" style={{display:"flex",gap:"clamp(16px,2vw,32px)",alignItems:"center"}}>
 {["Experience","About","Tickets"].map(n=><a key={n} href={`#${n.toLowerCase()}`} style={{fontFamily:F.sans,fontSize:"10px",fontWeight:500,letterSpacing:"0.2em",textTransform:"uppercase",color:C.muted,textDecoration:"none",transition:"color 0.3s"}} onMouseEnter={e=>(e.target as HTMLElement).style.color=C.cream} onMouseLeave={e=>(e.target as HTMLElement).style.color=C.muted}>{n}</a>)}
 <a href="#tickets" style={{fontFamily:F.sans,fontSize:"10px",fontWeight:700,letterSpacing:"0.12em",textTransform:"uppercase",color:C.base,background:C.rose,padding:"10px 24px",textDecoration:"none",transition:"all 0.3s"}} onMouseEnter={e=>(e.target as HTMLElement).style.transform="translateY(-2px)"} onMouseLeave={e=>(e.target as HTMLElement).style.transform="translateY(0)"}>Get Tickets</a>
 </div>
@@ -139,7 +139,17 @@ function Tickets(){const[sel,setSel]=useState(0);return(
 ))}
 </div>
 </div>
-<style>{`@keyframes stellaPulse{0%,100%{opacity:1}50%{opacity:0.3}}`}</style>
+<style>{`@keyframes stellaPulse{0%,100%{opacity:1}50%{opacity:0.3}}`}
+@media(max-width:768px){
+  .dg,.DG,[style*="gridTemplateColumns"]{grid-template-columns:1fr!important}
+  .nl,.desktop-nav{display:none!important}
+  .fg,.stat-grid,.feature-grid{grid-template-columns:1fr!important}
+  .eg{grid-template-columns:1fr!important}
+  h1,h2,.hero-title{word-break:break-word}
+  nav{padding:16px!important}
+  section{padding-left:16px!important;padding-right:16px!important}
+}
+</style>
 </section>
 );}
 
@@ -195,7 +205,7 @@ function Footer(){return(
 );}
 
 export default function STELLASite(){return(
-<div style={{background:C.base,minHeight:"100vh"}}>
+<div style={{background:C.base,minHeight:"100vh",overflowX:'hidden'}}>
 <Nav/><Hero/><About/><Tickets/><FAQ/><Footer/>
 </div>
 );}
